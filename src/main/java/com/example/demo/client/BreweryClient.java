@@ -36,5 +36,10 @@ public class BreweryClient {
 		
 		return restTemplate.postForLocation(apihost + BEER_PATH_V1, beer);
 	}
+	
+	public void putBeer(UUID beerId, BeerDto beer) {
+		
+		restTemplate.put(apihost + BEER_PATH_V1 + beerId.toString(), beer);
+	}
 
 }
