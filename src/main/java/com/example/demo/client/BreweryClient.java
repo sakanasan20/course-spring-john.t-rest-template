@@ -1,8 +1,8 @@
 package com.example.demo.client;
 
+import java.net.URI;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Component;
@@ -23,13 +23,18 @@ public class BreweryClient {
 	public BreweryClient(RestTemplateBuilder restTemplateBuilder) {
 		this.restTemplate = restTemplateBuilder.build();
 	}
-
+	
+	public void setApihost(String apihost) {
+		this.apihost = apihost;
+	}
+	
 	public BeerDto getBeer(UUID beerId) {
 		return restTemplate.getForObject(apihost + BEER_PATH_V1 + beerId.toString(), BeerDto.class);
 	}
 
-	public void setApihost(String apihost) {
-		this.apihost = apihost;
+	public URI postBeer(BeerDto beer) {
+		
+		return restTemplate.postForLocation(apihost + BEER_PATH_V1, beer);
 	}
 
 }

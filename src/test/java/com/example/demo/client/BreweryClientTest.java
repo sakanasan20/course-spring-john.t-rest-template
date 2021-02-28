@@ -2,6 +2,7 @@ package com.example.demo.client;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.net.URI;
 import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +26,20 @@ class BreweryClientTest {
 	void testGetBeer() {
 		
 		BeerDto beer = breweryClient.getBeer(UUID.randomUUID());
+		
 		assertNotNull(beer);
+	}
+	
+	@Test
+	void testPostBeer() {
+		
+		BeerDto beer = BeerDto.builder().name("New Beer").build();
+		
+		URI uri = breweryClient.postBeer(beer);
+		
+		assertNotNull(uri);
+		
+		System.out.println(uri.toString());
 	}
 
 }
